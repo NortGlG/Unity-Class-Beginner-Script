@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 
 public class GameManager : MonoBehaviour {
@@ -10,8 +11,10 @@ public class GameManager : MonoBehaviour {
     public int Score = 0;
     public GameObject Player;
     public TMP_Text Text_Score;
+    public Image HealthBar;
 
     // private
+    private int MaxHealth;
 
     // Start Here
     private void Awake(){
@@ -30,15 +33,21 @@ public class GameManager : MonoBehaviour {
     public void DisplayScore(){
         Text_Score.text = Score.ToString();
     }
+    public void DisplayHealth(){ // Change this up to your desire :)
+        float current = 1f * Health / MaxHealth;
+        HealthBar.fillAmount = 1f - current;
+    }
     public void SetupPlayer(){
         Health = 100;
         Score = 0;
+        MaxHealth = Health;
         DisplayScore();
+        DisplayHealth();
     }
     public void UpdateHealth(int amount, bool isIncrease){
         if(isIncrease) Health += amount;
         else Health -= amount;
-        Debug.Log("Health : " + Health);
+        DisplayHealth();
         if(Health <= 0) Player.GetComponent<PlayerController>().isAlive = false;
     }
     public void UpdateScore(int amount){
