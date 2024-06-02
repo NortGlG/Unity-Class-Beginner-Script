@@ -50,7 +50,6 @@ public class GameManager : MonoBehaviour {
         DisplayHealth();
         if(Health <= 0) {
             Player.GetComponent<PlayerController>().isAlive = false;
-            FXManager.Instance.AddDeadFX(transform);
         }
     }
     public void UpdateScore(int amount){

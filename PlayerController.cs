@@ -12,6 +12,7 @@ public class PlayerController : MonoBehaviour {
     public CharacterController characterController;
     public float rotationSpeed = 10f;
     public bool isAlive;
+    public bool isDead;
 
     // private
     private bool isRun;
@@ -24,6 +25,7 @@ public class PlayerController : MonoBehaviour {
         characterController = transform.GetComponent<CharacterController>();
         animator = PlayerModel.GetComponent<Animator>();
         isAlive = true;
+        isDead = false;
     }
     public void TriggerAnimation(string index){
         animator.SetBool("isIdle", false);
@@ -34,6 +36,8 @@ public class PlayerController : MonoBehaviour {
     void Update() {
         if(!isAlive){
             animator.SetBool("isDead", true);
+            if(!isDead) FXManager.Instance.AddDeadFX(transform);
+            isDead = true;
             return;
         }
         if(Input.GetButton("Run")){ Speed = RunSpeed; isRun = true;}
