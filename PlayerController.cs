@@ -32,7 +32,10 @@ public class PlayerController : MonoBehaviour {
         animator.SetBool(index, true);
     }
     void Update() {
-        if(!isAlive) return;
+        if(!isAlive){
+            animator.SetBool("isDead", true);
+            return;
+        }
         if(Input.GetButton("Run")){ Speed = RunSpeed; isRun = true;}
         else { Speed = WalkSpeed; isRun = false;}
         float horizontalInput = Input.GetAxisRaw("Horizontal");
