@@ -47,6 +47,7 @@ public class PlayerController : MonoBehaviour {
         if(characterController.isGrounded){
             if(Input.GetButtonDown("Jump")){
                 moveDirection.y = JumpForce;
+                FXManager.Instance.AddJumpFX(transform);
             }
         }
         else{
