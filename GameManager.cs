@@ -35,7 +35,7 @@ public class GameManager : MonoBehaviour {
     }
     public void DisplayHealth(){ // Change this up to your desire :)
         float current = 1f * Health / MaxHealth;
-        HealthBar.fillAmount = 1f - current;
+        HealthBar.fillAmount = current;
     }
     public void SetupPlayer(){
         Health = 100;

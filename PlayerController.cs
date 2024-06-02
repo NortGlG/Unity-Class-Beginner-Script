@@ -14,19 +14,27 @@ public class PlayerController : MonoBehaviour {
     public bool isAlive;
 
     // private
+    private bool isRun;
     private float Speed;
     private Vector3 moveDirection;
+    private Animator animator;
 
     // Start Here
     void Start() {
         characterController = transform.GetComponent<CharacterController>();
+        animator = PlayerModel.GetComponent<Animator>();
         isAlive = true;
     }
-
+    public void TriggerAnimation(string index){
+        animator.SetBool("isIdle", false);
+        animator.SetBool("isWalk", false);
+        animator.SetBool("isRun", false);
+        animator.SetBool(index, true);
+    }
     void Update() {
         if(!isAlive) return;
-        if(Input.GetButton("Run")) Speed = RunSpeed;
-        else Speed = WalkSpeed;
+        if(Input.GetButton("Run")){ Speed = RunSpeed; isRun = true;}
+        else { Speed = WalkSpeed; isRun = false;}
         float horizontalInput = Input.GetAxisRaw("Horizontal");
         float verticalInput = -Input.GetAxisRaw("Vertical");
         Vector3 moveInput = new Vector3(verticalInput, 0, horizontalInput).normalized;
@@ -42,13 +50,14 @@ public class PlayerController : MonoBehaviour {
             moveDirection.y -= Gravity * Time.deltaTime;
         }
         characterController.Move(moveDirection * Time.deltaTime);
-
         if(move != Vector3.zero){
+            if(isRun) TriggerAnimation("isRun");
+            else TriggerAnimation("isWalk");
             Quaternion targetRotation = Quaternion.LookRotation(move);
             PlayerModel.transform.rotation = Quaternion.Lerp(PlayerModel.transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
         }
+        else TriggerAnimation("isIdle");
     }
-
     private void OnCollisionEnter(Collision collision){
         if(collision.gameObject.CompareTag("Damager")){
             int damage = collision.transform.GetComponent<DamagerBehavior>().DamageValue;
