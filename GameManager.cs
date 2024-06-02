@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class GameManager : MonoBehaviour {
     // public
@@ -8,6 +9,7 @@ public class GameManager : MonoBehaviour {
     public int Health = 100;
     public int Score = 0;
     public GameObject Player;
+    public TMP_Text Text_Score;
 
     // private
 
@@ -25,11 +27,14 @@ public class GameManager : MonoBehaviour {
         SetupPlayer();
     }
 
+    public void DisplayScore(){
+        Text_Score.text = Score.ToString();
+    }
     public void SetupPlayer(){
         Health = 100;
         Score = 0;
+        DisplayScore();
     }
-
     public void UpdateHealth(int amount, bool isIncrease){
         if(isIncrease) Health += amount;
         else Health -= amount;
@@ -38,6 +43,6 @@ public class GameManager : MonoBehaviour {
     }
     public void UpdateScore(int amount){
         Score += amount;
-        Debug.Log("Score : " + Score);
+        DisplayScore();
     }
 }
