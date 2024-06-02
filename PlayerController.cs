@@ -11,6 +11,7 @@ public class PlayerController : MonoBehaviour {
     public GameObject PlayerModel;
     public CharacterController characterController;
     public float rotationSpeed = 10f;
+    public bool isAlive;
 
     // private
     private float Speed;
@@ -19,9 +20,11 @@ public class PlayerController : MonoBehaviour {
     // Start Here
     void Start() {
         characterController = transform.GetComponent<CharacterController>();
+        isAlive = true;
     }
 
     void Update() {
+        if(!isAlive) return;
         if(Input.GetButton("Run")) Speed = RunSpeed;
         else Speed = WalkSpeed;
         float horizontalInput = Input.GetAxisRaw("Horizontal");
@@ -48,7 +51,7 @@ public class PlayerController : MonoBehaviour {
 
     private void OnCollisionEnter(Collision collision){
         if(collision.gameObject.CompareTag("Damager")){
-            GameManager.Instance.UpdateHealth(10);
+            GameManager.Instance.UpdateHealth(-10);
         }
     }
     private void OnTriggerEnter(Collider other){

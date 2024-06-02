@@ -7,7 +7,8 @@ public class GameManager : MonoBehaviour {
     public static GameManager Instance;
     public int Health = 100;
     public int Score = 0;
-    
+    public GameObject Player;
+
     // private
 
     // Start Here
@@ -32,6 +33,7 @@ public class GameManager : MonoBehaviour {
     public void UpdateHealth(int amount){
         Health += amount;
         Debug.Log("Health : " + Health);
+        if(Health <= 0) Player.GetComponent<PlayerController>().isAlive = false;
     }
     public void UpdateScore(int amount){
         Score += amount;
