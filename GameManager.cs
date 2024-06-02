@@ -30,8 +30,9 @@ public class GameManager : MonoBehaviour {
         Score = 0;
     }
 
-    public void UpdateHealth(int amount){
-        Health += amount;
+    public void UpdateHealth(int amount, bool isIncrease){
+        if(isIncrease) Health += amount;
+        else Health -= amount;
         Debug.Log("Health : " + Health);
         if(Health <= 0) Player.GetComponent<PlayerController>().isAlive = false;
     }
