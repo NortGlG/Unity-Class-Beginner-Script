@@ -48,7 +48,10 @@ public class GameManager : MonoBehaviour {
         if(isIncrease) Health += amount;
         else Health -= amount;
         DisplayHealth();
-        if(Health <= 0) Player.GetComponent<PlayerController>().isAlive = false;
+        if(Health <= 0) {
+            Player.GetComponent<PlayerController>().isAlive = false;
+            FXManager.Instance.AddDeadFX(transform);
+        }
     }
     public void UpdateScore(int amount){
         Score += amount;
