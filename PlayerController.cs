@@ -51,7 +51,8 @@ public class PlayerController : MonoBehaviour {
 
     private void OnCollisionEnter(Collision collision){
         if(collision.gameObject.CompareTag("Damager")){
-            GameManager.Instance.UpdateHealth(-10);
+            int damage = collision.transform.GetComponent<DamagerBehavior>().DamageValue;
+            GameManager.Instance.UpdateHealth(-damage);
         }
     }
     private void OnTriggerEnter(Collider other){
