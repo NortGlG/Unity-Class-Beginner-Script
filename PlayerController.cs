@@ -73,6 +73,7 @@ public class PlayerController : MonoBehaviour {
         if(other.gameObject.CompareTag("Score")){
             GameManager.Instance.UpdateScore(5);
             Destroy(other.gameObject);
+            FXManager.Instance.AddScoreFX(transform);
         }
     }
 }
