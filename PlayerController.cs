@@ -53,7 +53,7 @@ public class PlayerController : MonoBehaviour {
             moveDirection.y -= Gravity * Time.deltaTime;
         }
         characterController.Move(moveDirection * Time.deltaTime);
-        if(move != Vector3.zero){
+        if(moveInput != Vector3.zero){
             if(isRun) TriggerAnimation("isRun");
             else TriggerAnimation("isWalk");
             Quaternion targetRotation = Quaternion.LookRotation(move);
