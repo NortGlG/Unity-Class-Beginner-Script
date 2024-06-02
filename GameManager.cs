@@ -3,11 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour {
+    // public
     public static GameManager Instance;
     public int Health = 100;
     public int Score = 0;
     
+    // private
 
+    // Start Here
     private void Awake(){
         if(Instance == null){
             Instance = this;
